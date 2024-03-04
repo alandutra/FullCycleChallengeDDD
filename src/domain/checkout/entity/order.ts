@@ -17,6 +17,10 @@ export default class Order {
     this._items.push(item);
   }
 
+  updateTotal(value: number){
+    this._total += value;
+  }
+
   get id(): string {
     return this._id;
   }

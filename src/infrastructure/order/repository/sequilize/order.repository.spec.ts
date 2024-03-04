@@ -151,8 +151,11 @@ describe("Order repository test", () => {
     
     const newOrderItem = new OrderItem("2", product2.name, product2.price, product2.id, 1);         
     order.addNewOrderItem(newOrderItem);
+    order.updateTotal(product2.price*newOrderItem.quantity);
 
     await orderRepository.update(order);
+
+    console.log(order);
 
     const orderModel = await OrderModel.findOne({
       where: { id: order.id },
