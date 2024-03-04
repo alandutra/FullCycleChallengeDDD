@@ -13,6 +13,10 @@ export default class Order {
     this.validate();
   }
 
+  addNewOrderItem(item: OrderItem) {
+    this._items.push(item);
+  }
+
   get id(): string {
     return this._id;
   }
@@ -23,10 +27,6 @@ export default class Order {
 
   get items(): OrderItem[] {
     return this._items;
-  }
-
-  changeCustomerId(customerId: string) {
-    this._customerId = customerId;
   }
 
   validate(): boolean {
