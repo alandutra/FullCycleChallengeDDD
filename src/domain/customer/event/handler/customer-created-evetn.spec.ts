@@ -39,29 +39,22 @@ describe("Customer created event tests", () => {
     it('should notify all event handlers when customer address change', () => {
         const eventDispatcher = new EventDispatcher();
     
-        const sendMessageWhenAddressChangeHandler =
-          new SendMailWhenChangedAddress();
-    
-        /**
-         * spyEventHandler fica "espiando" se o método handle é executado
-         */
-        const spyEventHandlerMessageOne = jest.spyOn(sendMessageWhenAddressChangeHandler,'handle',);
+        const sendMessageWhenAddressChangeHandler = new SendMailWhenChangedAddress();    
+        
+        const spyEventHandler = jest.spyOn(sendMessageWhenAddressChangeHandler,'handle',);
     
         let customer = new Customer('123', 'Customer 1');
     
         const address = new Address('Street 1', 1, 'Zipcode 1', 'City 1');
         customer.changeAddress(address);
     
-        eventDispatcher.register(
-          'CustomerAddressChangedEvent',
-          sendMessageWhenAddressChangeHandler,
-        );
+        eventDispatcher.register('CustomerAddressChangedEvent', sendMessageWhenAddressChangeHandler,);
     
         const customerAddressChangeEvent = new CustomerAddressChangedEvent(customer);
             
         eventDispatcher.notify(customerAddressChangeEvent);
     
-        expect(spyEventHandlerMessageOne).toHaveBeenCalled();
+        expect(spyEventHandler).toHaveBeenCalled();
       });
 
 });
